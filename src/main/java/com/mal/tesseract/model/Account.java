@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table
@@ -32,6 +33,9 @@ public class Account implements Serializable {
 
     @Column
     private Boolean accountNonLocked;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+    private List<AccountLog> accountLogs;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

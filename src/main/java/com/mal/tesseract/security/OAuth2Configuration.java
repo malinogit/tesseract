@@ -2,6 +2,7 @@ package com.mal.tesseract.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @Configuration
 @EnableResourceServer
 @EnableAuthorizationServer
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManagerBuilder authenticationManager;
@@ -28,7 +30,7 @@ class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-        String applicationName = "sws-lead";
+        String applicationName = "tesseract";
         clients.inMemory()
                 .withClient("web-" + applicationName)
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
