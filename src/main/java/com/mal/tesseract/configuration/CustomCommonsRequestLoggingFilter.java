@@ -1,4 +1,4 @@
-package com.mal.tesseract.security;
+package com.mal.tesseract.configuration;
 
 import com.mal.tesseract.model.AccountLog;
 import com.mal.tesseract.service.AccountLogService;

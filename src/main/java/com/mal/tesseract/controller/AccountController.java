@@ -2,6 +2,7 @@ package com.mal.tesseract.controller;
 
 import com.mal.tesseract.facade.AccountFacade;
 import com.mal.tesseract.model.dto.AccountDto;
+import com.mal.tesseract.service.MailComponent;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     private final AccountFacade accountFacade;
+    private final MailComponent mailComponent;
 
     @PreAuthorize("hasAuthority('BASIC_USER')")
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
@@ -24,5 +26,10 @@ public class AccountController {
         return accountFacade.findByUsername(username)
                 .map(accountDto -> new ResponseEntity<>(accountDto, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    void sendMail(){
+        mailComponent.mockMail();
     }
 }
